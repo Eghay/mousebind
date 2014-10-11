@@ -111,40 +111,40 @@ int main(int argc, char** argv) {
 /* scan_devices() */
 int scan_devices(char* filename) {
 
-	struct dirent **namelist;
-	int i, ndev, devnum, fd = -1;
-	char fname[64], name[256] = "???";
+    struct dirent **namelist;
+    int i, ndev, devnum, fd = -1;
+    char fname[64], name[256] = "???";
 
-	ndev = scandir("/dev/input", &namelist, is_event_device, alphasort);
-	if (ndev <= 0) {
+    ndev = scandir("/dev/input", &namelist, is_event_device, alphasort);
+    if (ndev <= 0) {
         return -1;
-	}
+    }
 
-	for (i = 0; i < ndev; i++) {
-	
-		snprintf(fname, sizeof(fname), "%s/%s", "/dev/input", 
-		    namelist[i]->d_name);
-		    
-		if ((fd = open(fname, O_RDONLY)) < 0) {
-			free(namelist[i]);
-			continue;
+    for (i = 0; i < ndev; i++) {
+
+        snprintf(fname, sizeof(fname), "%s/%s", "/dev/input", 
+            namelist[i]->d_name);
+
+        if ((fd = open(fname, O_RDONLY)) < 0) {
+            free(namelist[i]);
+            continue;
         }
         ioctl(fd, EVIOCGNAME(sizeof(name)), name);
 
         if (!strcmp(mouse_name, name)) {
             strcpy(filename, fname);
         }
-    
+
         close(fd);
         free(namelist[i]);
-	}
+    }
 
-	return 0;
+    return 0;
 }
 
 
 /* is_event_device() */
 static int is_event_device(const struct dirent *dir) {
-	return strncmp("event", dir->d_name, 5) == 0;
+    return strncmp("event", dir->d_name, 5) == 0;
 }
 
