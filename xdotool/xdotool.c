@@ -293,26 +293,26 @@ int xdotool_main(int argc, char **argv) {
    * else use commands from argv.
    */
 
-  struct stat data;
-  int stat_ret;
+/*  struct stat data;*/
+/*  int stat_ret;*/
 
-  if (argc >= 2) {
-    /* See if the first argument is an existing file */
-    stat_ret = stat(argv[1], &data);
-    int i = 0;
-    int argv1_is_command= 0;
-    
-    for (i = 0; dispatch[i].name != NULL; i++) {
-      if (!strcasecmp(dispatch[i].name, argv[1])) {
-        argv1_is_command = 1;
-        break;
-      }
-    }
+/*  if (argc >= 2) {*/
+/*    /* See if the first argument is an existing file */
+/*    stat_ret = stat(argv[1], &data);*/
+/*    int i = 0;*/
+/*    int argv1_is_command= 0;*/
+/*    */
+/*    for (i = 0; dispatch[i].name != NULL; i++) {*/
+/*      if (!strcasecmp(dispatch[i].name, argv[1])) {*/
+/*        argv1_is_command = 1;*/
+/*        break;*/
+/*      }*/
+/*    }*/
 
-    if (!argv1_is_command && (strcmp(argv[1], "-") == 0 || stat_ret == 0)) {
-      return script_main(argc, argv);
-    }
-  }
+/*    if (!argv1_is_command && (strcmp(argv[1], "-") == 0 || stat_ret == 0)) {*/
+/*      return script_main(argc, argv);*/
+/*    }*/
+/*  }*/
   return args_main(argc, argv);
 }
 
